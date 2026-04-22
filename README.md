@@ -1,1 +1,1 @@
-# PulseCompress-CUDA-Matched-Filtering
+# PulseCompress - CUDA Matched Filtering
