@@ -38,7 +38,9 @@ int main(int argc, char **argv)
 
 
 
-
+	delete[] data;
+	delete[] filter;
+	delete[] result;
 
 	return 0;
 }
