@@ -10,6 +10,6 @@ echo "*****************************************"
 echo "** Generating filter and return signal **"
 echo "*****************************************"
 
-python generate_data.py
+python3 generate_data.py
 
 echo "** Data generated **"
