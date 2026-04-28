@@ -9,6 +9,9 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -allow-unsupported-compiler")
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
+
+set(CMAKE_CUDA_FLAGS_DEBUG "-g -G -O0")
 
 # Find CUDA
 find_package(CUDAToolkit REQUIRED)
