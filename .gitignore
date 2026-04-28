@@ -7,3 +7,5 @@
 
 build/
 bin/
+filter.bin
+signal.bin
