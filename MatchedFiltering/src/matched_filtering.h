@@ -17,7 +17,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort =
 
 
 // Function declaration will go here once I figure it out
-
+void matchedFilter(float *signal, float *filter, float *output, int filterSize, int signalSize);
 
 
 
