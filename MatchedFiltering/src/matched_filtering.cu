@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 __global__
-void matchedFilter_kernel(float *signal, float *filter, float *ouptut, int filterSize, int signalSize)
+void matchedFilter_kernel(float *signal, float *filter, float *output, int filterSize, int signalSize)
 {
 
 
@@ -14,18 +14,34 @@ void matchedFilter_kernel(float *signal, float *filter, float *ouptut, int filte
 
 void matchedFilter(float *signal, float *filter, float *output, int filterSize, int signalSize)
 {
-    //@@ Allocate GPU memory here
-	
-    //@@ Copy memory to the GPU here
+    	//@@ Allocate GPU memory here
+	float *deviceSignal, *deviceFilter, *deviceOutput;
 
-    //@@ Initialize the grid and block dimensions here
+	int numBlocks = ( (filterSize + signalSize - 1) + BLOCK_SIZE - 1) / BLOCK_SIZE;
 
-    //@@ Launch the GPU Kernel here
-    
+	gpuErrchk( cudaMalloc((void **) &deviceSignal, signalSize * sizeof(float)) );
+	gpuErrchk( cudaMalloc((void **) &deviceFilter, filterSize * sizeof(float)) );
 
-    //@@ Copy the GPU memory back to the CPU here
+	gpuErrchk( cudaMalloc((void **) &deviceOutput, (filterSize + signalSize - 1) * sizeof(float)) );
 
-    //@@ Free the GPU memory here	
+    	//@@ Copy memory to the GPU here
+	gpuErrchk( cudaMemcpy(deviceSignal, signal, signalSize * sizeof(float), cudaMemcpyHostToDevice) );
+	gpuErrchk( cudaMemcpy(deviceFilter, filter, filterSize * sizeof(float), cudaMemcpyHostToDevice) );
 
+   	//@@ Initialize the grid and block dimensions here
+	dim3 gridDim(numBlocks, 1, 1);
+	dim3 blockDim(BLOCK_SIZE, 1, 1);
 
+    	//@@ Launch the GPU Kernel here
+   	matchedFilter_kernel<<<gridDim,blockDim>>>(deviceSignal, deviceFilter, deviceOutput, filterSize, signalSize);
+
+	cudaDeviceSynchronize();	
+
+	//@@ Copy the GPU memory back to the CPU here
+	gpuErrchk( cudaMemcpy(output, deviceOutput, (filterSize + signalSize - 1) * sizeof(float), cudaMemcpyDeviceToHost) );
+
+	//@@ Free the GPU memory here	
+	cudaFree(deviceSignal);
+	cudaFree(deviceFilter);
+	cudaFree(deviceOutput);
 }
