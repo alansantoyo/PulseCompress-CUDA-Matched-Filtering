@@ -2,6 +2,7 @@
 #define _MATCHED_FILTERING_H_
 
 #include <iostream>
+#include <vector>
 #include <cuda_runtime.h>
 
 #define BLOCK_SIZE 512 //@@ You can change this
