@@ -6,6 +6,8 @@
 #include <cuda_runtime.h>
 
 #define BLOCK_SIZE 512 //@@ You can change this
+#define SIG_SIZE 50000000
+#define FILTER_SIZE 1024
 
 #define gpuErrchk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
 inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort = true) {
