@@ -9,3 +9,4 @@ build/
 bin/
 filter.bin
 signal.bin
+output.bin
