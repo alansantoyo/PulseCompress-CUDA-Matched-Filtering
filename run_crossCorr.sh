@@ -2,6 +2,9 @@
 #SBATCH --export=/usr/local/cuda/bin
 #SBATCH --gres=gpu:1
 
+if [ -f "./MatchedFilter/src/output.bin" ]; then
+	rm ./MatchedFilter/src/output.bin
+fi
 
 cmake -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
