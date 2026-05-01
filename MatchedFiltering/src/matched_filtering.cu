@@ -4,11 +4,20 @@
 __global__
 void matchedFilter_kernel(float *signal, float *filter, float *output, int filterSize, int signalSize)
 {
-
-
-
-
-
+	int idx = blockIdx.x * blockDim.x + threadIdx.x;
+	int signalIdx = 512 + idx;
+	int sum = 0;
+	int index = 0;
+	if (idx < (signalSize - filterSize + 1) && signalIdx < (signalSize - 512))
+	{
+		for(int i = (signalIdx - 512); i < (signalIdx + 512); i++)
+		{
+			sum += ( signal[i] * filter[index] );
+			index++;
+		}	
+		output[idx] = sum;
+	}
+	__syncthreads();
 
 }
 
@@ -17,12 +26,12 @@ void matchedFilter(float *signal, float *filter, float *output, int filterSize, 
     	//@@ Allocate GPU memory here
 	float *deviceSignal, *deviceFilter, *deviceOutput;
 
-	int numBlocks = ( (filterSize + signalSize - 1) + BLOCK_SIZE - 1) / BLOCK_SIZE;
+	int numBlocks = ( (signalSize - filterSize + 1) + BLOCK_SIZE - 1) / BLOCK_SIZE;
 
 	gpuErrchk( cudaMalloc((void **) &deviceSignal, signalSize * sizeof(float)) );
 	gpuErrchk( cudaMalloc((void **) &deviceFilter, filterSize * sizeof(float)) );
 
-	gpuErrchk( cudaMalloc((void **) &deviceOutput, (filterSize + signalSize - 1) * sizeof(float)) );
+	gpuErrchk( cudaMalloc((void **) &deviceOutput, (signalSize - filterSize + 1) * sizeof(float)) );
 
     	//@@ Copy memory to the GPU here
 	gpuErrchk( cudaMemcpy(deviceSignal, signal, signalSize * sizeof(float), cudaMemcpyHostToDevice) );
@@ -38,7 +47,7 @@ void matchedFilter(float *signal, float *filter, float *output, int filterSize, 
 	cudaDeviceSynchronize();	
 
 	//@@ Copy the GPU memory back to the CPU here
-	gpuErrchk( cudaMemcpy(output, deviceOutput, (filterSize + signalSize - 1) * sizeof(float), cudaMemcpyDeviceToHost) );
+	gpuErrchk( cudaMemcpy(output, deviceOutput, (signalSize - filterSize + 1) * sizeof(float), cudaMemcpyDeviceToHost) );
 
 	//@@ Free the GPU memory here	
 	cudaFree(deviceSignal);
