@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 		return -1;
 	}
 	file.read(reinterpret_cast<char*>(data), 50000000 * sizeof(float));
-	
+	file.close();
 	// Read the signal file -- done
 	// Read the filter file -- done 
 	float *filter = new float[FILTER_SIZE];
@@ -23,8 +23,8 @@ int main(int argc, char **argv)
 		return -1;
 	}
 	file1.read(reinterpret_cast<char*>(filter), 1024 * sizeof(float));
-
-	float *result = new float[SIZE_SIZE + FILTER_SIZE - 1];
+	file1.close();
+	float *result = new float[SIG_SIZE - FILTER_SIZE + 1];
 
 	// allocated memory for result -- done
 	//
@@ -33,7 +33,17 @@ int main(int argc, char **argv)
 	matchedFilter(data, filter, result, FILTER_SIZE, SIG_SIZE);
 
 	// After I have the result, make a binary file, and display it using either matlab or python
-	
+	std::cout << "Output size: " << sizeof(result)/sizeof(result[0]) << std::endl;
+
+	std::ofstream outFile("/home/axs4549/PulseCompress-CUDA-Matched-Filtering/MatchedFiltering/src/output.bin", std::ios::binary);
+
+	if(!outFile.is_open())
+	{
+		std::cout << "ERROR: Output file could not be created.\n\n";
+		return -1;
+	}
+	outFile.write(reinterpret_cast<char*>(result), (SIG_SIZE - FILTER_SIZE + 1) * sizeof(float));	
+	outFile.close();
 
 
 
