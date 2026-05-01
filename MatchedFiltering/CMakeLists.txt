@@ -1,4 +1,4 @@
-set(MATCHED_FILTER_SOURCES src/main.cpp)
+set(MATCHED_FILTER_SOURCES src/main.cpp src/matched_filtering.cu)
 
 # Create the executable target
 add_executable(matched_filter ${MATCHED_FILTER_SOURCES})
