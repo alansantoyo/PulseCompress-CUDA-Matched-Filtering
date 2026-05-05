@@ -8,7 +8,7 @@ void matchedFilter_kernel(float *signal, float *filter, float *output, int filte
 {
 	int idx = blockIdx.x * blockDim.x + threadIdx.x;
 	float sum = 0.0f;
-	extern __shared__ float s_signal[];	
+	__shared__ float s_signal[1279];	
 
 	int spot_in_signal = blockIdx.x * blockDim.x;
 	int tileSize = blockDim.x + 1023;	
