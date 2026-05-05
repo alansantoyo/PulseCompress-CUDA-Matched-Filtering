@@ -10,3 +10,7 @@ bin/
 filter.bin
 signal.bin
 output.bin
+
+profile_01_baseline.ncu-rep
+profile_02_tiled.ncu-rep
+profile_03_tiled_coarsened.ncu-rep
