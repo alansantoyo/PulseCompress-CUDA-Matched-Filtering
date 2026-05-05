@@ -8,6 +8,9 @@ fi
 if [ -e "./MatchedFilterTiled/src/output.bin" ]; then
 	rm ./MatchedFilterTiled/src/output.bin
 fi
+if [ -e "./MatchedFilterTiledCoarsened/src/output.bin" ]; then
+	rm ./MatchedFilterTiledCoarsened/src/output.bin
+fi
 
 cmake -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
@@ -23,4 +26,9 @@ if [ -e "./bin/matched_filter_tiled" ]; then
 	echo "Launching kernel with tiling..."
 	./bin/matched_filter_tiled
 	echo "Tiled kernel finished."
+fi
+if [ -e "./bin/matched_filter_tiled_coarsened" ]; then
+	echo "Launching kernel with tiling and coarsening..."
+	./bin/matched_filter_tiled_coarsened
+	echo "Tiled and coarsened kernel finished."
 fi
