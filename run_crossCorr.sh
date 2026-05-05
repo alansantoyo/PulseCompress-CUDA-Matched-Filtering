@@ -11,11 +11,13 @@ cmake --build build
 
 
 if [ -e "./bin/matched_filter" ]; then
-	echo "Launching the program..."
+	echo "Launching the unoptimized kernel..."
 	./bin/matched_filter
-	echo "********************************************"
-	echo "** Computing cross correlation for signal **"
-	echo "********************************************"
+	echo "Unoptimized kernel finished."
+fi
 
-	
+if [ -e "./bin/matched_filter_tiled" ]; then
+	echo "Launching kernel with tiling..."
+	./bin/matched_filter_tiled
+	echo "Tiled kernel finished."
 fi
