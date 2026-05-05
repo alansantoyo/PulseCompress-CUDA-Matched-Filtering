@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include <cuda_runtime.h>
 
 #define BLOCK_SIZE 512 //@@ You can change this
