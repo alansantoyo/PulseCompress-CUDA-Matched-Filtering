@@ -5,7 +5,7 @@ int main(int argc, char **argv)
 {
 	
 	float *data = new float[SIG_SIZE];
-	std::ifstream file("/home/axs4549/PulseCompress-CUDA-Matched-Filtering/MatchedFiltering/src/signal.bin", std::ios::binary);
+	std::ifstream file("/home/axs4549/PulseCompress-CUDA-Matched-Filtering/MatchedFilteringTiled/src/signal.bin", std::ios::binary);
 	if (!file.is_open())
 	{
 		std::cout << "ERROR: Signal file could not be opened.\n\n";
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 	// Read the signal file -- done
 	// Read the filter file -- done 
 	float *filter = new float[FILTER_SIZE];
-	std::ifstream file1("/home/axs4549/PulseCompress-CUDA-Matched-Filtering/MatchedFiltering/src/filter.bin", std::ios::binary);
+	std::ifstream file1("/home/axs4549/PulseCompress-CUDA-Matched-Filtering/MatchedFilteringTiled/src/filter.bin", std::ios::binary);
 	if (!file1.is_open())
 	{
 		std::cout << "ERROR: Filter file could not be opened.\n\n";
