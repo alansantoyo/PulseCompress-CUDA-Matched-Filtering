@@ -6,7 +6,7 @@ void matchedFilter_kernel(float *signal, float *filter, float *output, int filte
 {
 	int idx = blockIdx.x * blockDim.x + threadIdx.x;
 	int signalIdx = 512 + idx;
-	int sum = 0;
+	float sum = 0;
 	int index = 0;
 	if (idx < (signalSize - filterSize + 1) && signalIdx < (signalSize - 512))
 	{
