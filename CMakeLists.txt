@@ -18,3 +18,4 @@ find_package(CUDAToolkit REQUIRED)
 
 add_subdirectory(MatchedFiltering)
 add_subdirectory(MatchedFilteringTiled)
+add_subdirectory(MatchedFilteringTiledCoarsened)
