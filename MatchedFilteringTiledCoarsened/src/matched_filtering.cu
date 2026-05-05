@@ -8,10 +8,11 @@ void matchedFilter_kernel(float *signal, float *filter, float *output, int filte
 {
 	int idx = blockIdx.x * blockDim.x + threadIdx.x;
 	float sum = 0.0f;
-	__shared__ float s_signal[1279];	
+	float sum2 = 0.0f;
+	__shared__ float s_signal[1535];	
 
 	int spot_in_signal = blockIdx.x * blockDim.x;
-	int tileSize = blockDim.x + 1023;	
+	int tileSize = (blockDim.x * 2) + 1023;	
 	for(int i = threadIdx.x; i < tileSize; i = i + blockDim.x) 
 	{
 		int global_idx = spot_in_signal + i;
@@ -27,14 +28,19 @@ void matchedFilter_kernel(float *signal, float *filter, float *output, int filte
 	__syncthreads();
 	
 	
-	if (idx < (signalSize - filterSize + 1))
+	if ((idx * 2) < (signalSize - filterSize + 1) )
 	{
-		for(int i = 0; i < filterSize; i++)
+		for(int i = 0; i < filterSize; i++) // For coarsening, I want to calculate two values at once.
 		{
-			sum += ( s_signal[threadIdx.x + i] * MF_filter[i] );
+			sum += ( s_signal[(threadIdx.x * 2) + i] * MF_filter[i] );
+			sum2 += (s_signal[((threadIdx.x * 2)+1) + i] * MF_filter[i] );
 		}	
-		output[idx] = sum;
+		output[idx * 2] = sum;
 	}
+	if( ((idx * 2) + 1) < (signalSize - filterSize + 1) )
+		output[(idx * 2) + 1] = sum2;
+	
+
 	__syncthreads();
 
 }
@@ -44,7 +50,7 @@ void matchedFilter(float *signal, float *filter, float *output, int filterSize, 
     	//@@ Allocate GPU memory here
 	float *deviceSignal, *deviceOutput; // Deleted deviceFilter because of the global filter
 
-	int numBlocks = ( (signalSize - filterSize + 1) + BLOCK_SIZE - 1) / BLOCK_SIZE;
+	int numBlocks = (( (signalSize - filterSize + 1) + BLOCK_SIZE - 1) / BLOCK_SIZE) / 2;
 
 	gpuErrchk( cudaMalloc((void **) &deviceSignal, signalSize * sizeof(float)) );
 	gpuErrchk( cudaMalloc((void **) &deviceOutput, (signalSize - filterSize + 1) * sizeof(float)) );
