@@ -33,7 +33,6 @@ int main(int argc, char **argv)
 	matchedFilter(data, filter, result, FILTER_SIZE, SIG_SIZE);
 
 	// After I have the result, make a binary file, and display it using either matlab or python
-	std::cout << "Output size: " << sizeof(result)/sizeof(result[0]) << std::endl;
 
 	std::ofstream outFile("/home/axs4549/PulseCompress-CUDA-Matched-Filtering/MatchedFiltering/src/output.bin", std::ios::binary);
 
