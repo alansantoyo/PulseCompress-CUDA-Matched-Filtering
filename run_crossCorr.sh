@@ -5,6 +5,9 @@
 if [ -f "./MatchedFilter/src/output.bin" ]; then
 	rm ./MatchedFilter/src/output.bin
 fi
+if [ -e "./MatchedFilterTiled/src/output.bin" ]; then
+	rm ./MatchedFilterTiled/src/output.bin
+fi
 
 cmake -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
