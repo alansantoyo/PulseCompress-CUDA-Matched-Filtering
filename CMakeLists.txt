@@ -17,3 +17,4 @@ set(CMAKE_CUDA_FLAGS_DEBUG "-g -G -O0")
 find_package(CUDAToolkit REQUIRED)
 
 add_subdirectory(MatchedFiltering)
+add_subdirectory(MatchedFilteringTiled)
