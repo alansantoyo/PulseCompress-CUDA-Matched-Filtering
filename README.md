@@ -37,6 +37,20 @@ Using **NVIDIA Nsight Compute (ncu)**, the kernel architecture was progressively
 ```bash
 git clone [https://github.com/yourusername/PulseCompress-CUDA-Matched-Filtering.git](https://github.com/yourusername/PulseCompress-CUDA-Matched-Filtering.git)
 cd PulseCompress-CUDA-Matched-Filtering
-cmake -B build
-cmake --build build
-
+```
+**2. Generate the Data**
+```bash
+bash generateData.sh
+```
+**3. Run the Kernels**
+```bash
+bash run_crossCor.sh
+```
+**4. Visualize the Output**
+```bash
+python display_data.py
+```
+**5. Run the Benchmark Script**
+```bash
+bash benchmark.sh
+```
