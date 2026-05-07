@@ -20,14 +20,14 @@ Using **NVIDIA Nsight Compute (ncu)**, the kernel architecture was progressively
 ## Visual Verification
 > `![Interactive Output Verification](docs/dashboard_screenshot.png)`
 
-## ⚙️ Architecture & Toolchain
+## Architecture & Toolchain
 * **Signal Generation (Python):** Generates binary target files (`.bin`) mimicking high-noise radar environments.
 * **Build System (CMake):** Cross-platform out-of-source builds managing host/device compilation.
 * **Compute Engine (CUDA C++):** Executes the highly parallelized convolution kernels.
 * **Verification (NumPy/Matplotlib):** Reads binary outputs from the GPU and maps peak detection.
 * **HPC Profiling (Slurm & ncu):** Deployed and profiled on shared computing clusters using batch scripting.
 
-## 🛠️ Build and Run Instructions
+## Build and Run Instructions
 
 **Prerequisites:** * NVIDIA GPU with CUDA Toolkit installed
 * CMake (v3.10+)
