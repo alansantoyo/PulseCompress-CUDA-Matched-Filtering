@@ -31,9 +31,12 @@ Using **NVIDIA Nsight Compute (ncu)**, the kernel architecture was progressively
 
 **Prerequisites:** * NVIDIA GPU with CUDA Toolkit installed
 * CMake (v3.10+)
-* Python 3.1 (with `numpy` and `matplotlib`)
+* Python 3.x (with `numpy` and `matplotlib`)
 
 **1. Clone and Build**
 ```bash
 git clone [https://github.com/yourusername/PulseCompress-CUDA-Matched-Filtering.git](https://github.com/yourusername/PulseCompress-CUDA-Matched-Filtering.git)
 cd PulseCompress-CUDA-Matched-Filtering
+cmake -B build
+cmake --build build
+
