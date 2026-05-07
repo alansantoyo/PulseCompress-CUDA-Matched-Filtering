@@ -18,7 +18,7 @@ Using **NVIDIA Nsight Compute (ncu)**, the kernel architecture was progressively
 **Final Result:** The fully optimized kernel achieved **95.9% Compute Throughput**, proving the algorithm successfully saturated the Streaming Multiprocessor (SM) math units while preserving mathematical integrity.
 
 ## Visual Verification
-> `![Interactive Output Verification](docs/dashboard_screenshot.png)`
+![Interactive Output Verification](docs/dashboard_screenshot.png)
 
 ## Architecture & Toolchain
 * **Signal Generation (Python):** Generates binary target files (`.bin`) mimicking high-noise radar environments.
