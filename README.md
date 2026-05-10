@@ -11,8 +11,8 @@ A GPU-accelerated digital signal processing pipeline built to execute matched fi
 The pipeline processes a simulated high-fidelity radar return consisting of **50,000,000 discrete samples** against a 1,024-point pulse envelope. 
 
 Using **NVIDIA Nsight Compute (ncu)**, the kernel architecture was progressively optimized across three stages:
-1. **CPU/Naive GPU Baseline:** Heavily bottlenecked by L1 cache saturation.
-2. **Shared Memory Tiling:** Eliminated the memory bottleneck by utilizing the L1 cache via cooperative block-strided loading and `__constant__` memory broadcasting.
+1. **CPU/Naive GPU Baseline:** Heavily bottlenecked by L1 cache saturation and loop instruction overhead. Threads make multiple redundant memory requests and clog up the cache, which prevent useful math from being done.
+2. **Shared Memory Tiling:** Eliminated the L1 cache redundancy via cooperative block-strided loading and `__constant__` memory broadcasting.
 3. **Thread Coarsening (Factor of 2):** Reduced integer instruction overhead by assigning multiple global outputs per thread.
 
 **Final Result:** The fully optimized kernel achieved **97.95% Compute Throughput** and  **97.95% Memory Throughput**, and an execution time of 49.9ms, a 6.8x speedup over the baseline.
